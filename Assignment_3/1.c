@@ -1,5 +1,5 @@
 #include<stdio.h>
-
+#define SIZE 10
 
 
 /*
@@ -15,32 +15,32 @@ void swap_without_additional_variables(int *a, int *b){
     *a = *a - *b;
 }
 
-void printArray(int arr[], int n){
-    for(int i = 0; i < n; i++)  
+void printArray(int arr[]){
+    for(int i = 0; i < SIZE; i++)  
         printf("%d ",arr[i]);
     printf("\n");
 }
 
 int main(){
 
-    int n;
-    printf("Enter the size of the array: ");
-    scanf("%d",&n);
+    // int n;
+    // printf("Enter the size of the array: ");
+    // scanf("%d",&n);
     
-    int arr[n];
-    printf("Enter %d elements for the array: ",n);
+    int arr[SIZE];
+    printf("Enter %d elements for the array: ",SIZE);
 
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < SIZE; i++)
         scanf("%d",&arr[i]);
     
     printf("Original Array : " );
-    printArray(arr,n);
+    printArray(arr);
 
-    for(int i = 0, j = n-1; i < j; i++, j--)
+    for(int i = 0, j = SIZE-1; i < j; i++, j--)
         swap_without_additional_variables(&arr[i], &arr[j]);
     
     printf("Reversed Array : " );
-    printArray(arr,n);
+    printArray(arr);
 
     return 0;
 }
