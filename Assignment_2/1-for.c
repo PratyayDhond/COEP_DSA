@@ -11,4 +11,5 @@ int main(){
     sum += i;
   
   printf("The sum of the first %d natural numbers is: %d\n",n,sum);
+  return 0;
 }
