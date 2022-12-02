@@ -106,11 +106,8 @@ int main(){
                     printf("You inputted incorrect option.");
                     fflush(stdin);
                     break;
-
         }
-
-        system("pause"); 
-        system("cls");   
+        printf("\n\n\n");   
     }
 
 }
