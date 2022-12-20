@@ -90,4 +90,30 @@ void popFront(List *l){
     *p = *p->next;
     
     return;
+
+// incomplete code 
+void reverse(List *l){
+    if(!l || !(*l) -> next )
+        return;
+
+    node *p = *l;
+    node *q = p -> next; 
+    node *temp = NULL;
+
+    while(q){
+        p -> next = temp;
+        temp = q -> next;
+        q -> next = p;
+
+        p = q;
+        q = temp;
+        temp = p -> next;
+    }
+
 }
+// 1 -> 2 -> 3 -> 4 -> NULL
+
+// 1 -> 2 -> 3 -> 4 -> NULL
+// p    q   
+
+// 1 -> 2 -> 3 -> 4 -> NULL
