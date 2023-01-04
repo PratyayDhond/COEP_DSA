@@ -191,35 +191,60 @@ void initSparse(Sparse* s, char* str){
 int hasSymmetricPair(Sparse s,int i, int j, int data){
 	Node *col = s.columns[j];
 
-	while(col && col->i <=j && col->j<=i){
-		if(col->i == j && col->j == i)
-			if(data == col->data)
-				return true;
-		col = col->down;
-	}
+	while(col && col -> i < j)
+		col = col -> down;	
+	if(data == col->data)
+		return true;
+
+	// while(col && col->i <=j){
+	// 		if(data == col->data)
+	// 			return true;
+	// 	col = col->down;
+	// }
 	return false;
 }
 
 int checkSymmetric(Sparse s){
-	printf("YO1\n");
+	// printf("YO1\n");
 	if(s.noOfColumns == 0 || s.noOfRows == 0)
 		return false;
-	printf("YO2\n");
+	// printf("YO2\n");
 	if(s.noOfRows != s.noOfColumns)
 		return false;
-	printf("YO3\n");
+	// printf("YO3\n");
 	
 	Node *col, *row;
 	int result = true;
 	for(int i = 0; i < s.noOfRows; i++){
 		row = s.rows[i];
 		while(row){
-			printf("YO%d\n",4+i);
+			// printf("YO%d\n",4+i);
 			result = hasSymmetricPair(s,i,row->j, row->data); 
-			if(!result)
+			if(result == false)
 				return result;
 			row = row -> next;
 		}
-	}
 	return true;
+	}
 }
+
+
+/*
+Documented Legacy Code with comments :)
+int hasSymmetricPair(Sparse s,int i, int j, int data){
+	Node *col = s.columns[j];
+
+	while(col && col->i <=j){
+		// printf("\n\n%d %d\n\n", col->i, j);
+		// if(col->j == i)
+			if(data == col->data){
+				// printf("Returned true for %d %d %d \n",i,j,data);
+				return true;
+			}
+		col = col->down;
+	}
+	// printf("Returned false for %d %d %d \n",i,j,data);
+	return false;
+}
+
+*/
