@@ -14,7 +14,10 @@ int main(){
 	// display(s4);
 
 	Sparse s5;
+	// initSparse(&s5, "symmetricMatrix.txt");
 	initSparse(&s5, "symmetric1.txt");
+	// initSparse(&s5, "sparseInput1.txt");
+	// initSparse(&s5, "symmetricMatrix.txt");
 	int result = checkSymmetric(s5);
 	printf("Symmetric : %d",result);
 }

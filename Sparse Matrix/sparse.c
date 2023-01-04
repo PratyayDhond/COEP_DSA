@@ -191,16 +191,19 @@ void initSparse(Sparse* s, char* str){
 int hasSymmetricPair(Sparse s,int i, int j, int data){
 	Node *col = s.columns[j];
 
-	while(col && col -> i < j)
-		col = col -> down;	
-	if(data == col->data)
-		return true;
-
-	// while(col && col->i <=j){
-	// 		if(data == col->data)
-	// 			return true;
-	// 	col = col->down;
+	// while(col && col -> i <= j){
+	// 	col = col -> down;	
+	// 	printf("\n%d %d\n",col->data, i);	
 	// }
+
+	// if(data == col->data)
+	// 	return true;
+
+	while(col && col->i <=j){
+			if(data == col->data)
+				return true;
+		col = col->down;
+	}
 	return false;
 }
 
