@@ -97,7 +97,7 @@ Sparse add(Sparse s1, Sparse s2){
 			p = p->next;
 		}
 
-		while(p2 -> next){
+		while(p2){
 			createNewNodeAndAddToOrthagonalMatrix(&s3, i, p2->j, p2->data);
 			p2 = p2->next;
 		}
