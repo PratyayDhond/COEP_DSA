@@ -69,6 +69,9 @@ Sparse add(Sparse s1, Sparse s2){
 	s3.noOfRows = s1.noOfRows > s2.noOfRows ? s1.noOfRows : s2.noOfRows;
 	s3.noOfColumns = s1.noOfColumns > s2.noOfColumns ? s1.noOfColumns : s2.noOfColumns;
 	
+	if(s1.noOfRows != s2.noOfRows && s1.noOfColumns != s2.noOfColumns)
+		return s3;
+
 	initSparseWithoutFileInput(&s3);
 	
 	Node *p, *p2;
@@ -102,7 +105,53 @@ Sparse add(Sparse s1, Sparse s2){
 			p2 = p2->next;
 		}
 	}
-	display(s3);
+
+	return s3;
+}
+
+
+Sparse subtract(Sparse s1, Sparse s2){
+	Sparse s3;
+	s3.noOfRows = s1.noOfRows > s2.noOfRows ? s1.noOfRows : s2.noOfRows;
+	s3.noOfColumns = s1.noOfColumns > s2.noOfColumns ? s1.noOfColumns : s2.noOfColumns;
+	
+	if(s1.noOfRows != s2.noOfRows && s1.noOfColumns != s2.noOfColumns)
+		return s3;
+
+	initSparseWithoutFileInput(&s3);
+	
+	Node *p, *p2;
+	int sum;  
+	for(int i = 0; i < s3.noOfRows; i++){
+		sum = 0;
+	    p = s1.rows[i];
+		p2 = s2.rows[i];
+
+	    while(p && p2){
+			if(p -> j == p2 -> j ){	
+				if(p->data - p2->data != 0)
+					createNewNodeAndAddToOrthagonalMatrix(&s3, i,p->j, p->data - p2->data);
+				p = p -> next;
+				p2 = p2 -> next;
+			}else if(p -> j < p2 -> j){
+				createNewNodeAndAddToOrthagonalMatrix(&s3, i, p-> j, p -> data );
+				p = p -> next;
+			}else{
+				createNewNodeAndAddToOrthagonalMatrix(&s3, i, p2-> j, - p2 -> data );
+				p2 = p2 -> next;
+			}
+	    }
+
+		while(p){
+			createNewNodeAndAddToOrthagonalMatrix(&s3, i, p->j, p->data);
+			p = p->next;
+		}
+
+		while(p2){
+			createNewNodeAndAddToOrthagonalMatrix(&s3, i, p2->j, - p2->data);
+			p2 = p2->next;
+		}
+	}
 
 	return s3;
 }
@@ -139,3 +188,38 @@ void initSparse(Sparse* s, char* str){
 	
 }
 
+int hasSymmetricPair(Sparse s,int i, int j, int data){
+	Node *col = s.columns[j];
+
+	while(col && col->i <=j && col->j<=i){
+		if(col->i == j && col->j == i)
+			if(data == col->data)
+				return true;
+		col = col->down;
+	}
+	return false;
+}
+
+int checkSymmetric(Sparse s){
+	printf("YO1\n");
+	if(s.noOfColumns == 0 || s.noOfRows == 0)
+		return false;
+	printf("YO2\n");
+	if(s.noOfRows != s.noOfColumns)
+		return false;
+	printf("YO3\n");
+	
+	Node *col, *row;
+	int result = true;
+	for(int i = 0; i < s.noOfRows; i++){
+		row = s.rows[i];
+		while(row){
+			printf("YO%d\n",4+i);
+			result = hasSymmetricPair(s,i,row->j, row->data); 
+			if(!result)
+				return result;
+			row = row -> next;
+		}
+	}
+	return true;
+}
