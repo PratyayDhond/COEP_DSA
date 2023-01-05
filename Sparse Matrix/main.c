@@ -11,10 +11,16 @@ int main(){
 	initSparse(&s5, "symmetricMatrix.txt");
 	initSparse(&s6, "symmetric1.txt");
 
-	initSparse(&transpose1,"transposeInput.txt");
+	displayWithoutIndexes(s1);
+	transpose(&s1);
 	printf("\n");
 	displayWithoutIndexes(s1);
+	transpose(&s1);
+	displayWithoutIndexes(s1);
+
+	initSparse(&transpose1,"transposeInput.txt");
+	printf("\n");
 	int result = checkSymmetric(s2);
-		printf("%s\n",checkSymmetric(s6) ? "Symmetric" : "Not Symmetric" );
+		printf("%s\n",checkSymmetric(s1) ? "Symmetric" : "Not Symmetric" );
 
 }
