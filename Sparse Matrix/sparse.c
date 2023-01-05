@@ -62,9 +62,14 @@ void createNewNodeAndAddToOrthagonalMatrix(Sparse *s,int i, int j, int value){
 }
 
 void displayWithoutIndexes(Sparse s){
-		Node * p;
+	if(!s.rows || !s.columns)
+		return;
+	Node * p;
+
 	for(int i = 0; i < s.noOfRows; i++){
-	    p = s.rows[i];
+		p = s.rows[i];
+		if(!p)
+			continue;
 	    while(p){
 	    	printf("%d->",p->data);
 	    	p = p-> next;
@@ -193,8 +198,6 @@ void initSparse(Sparse* s, char* str){
 	   		}
 	   	}
 	}	
-	
-	
 }
 
 void swapPointers(Node** row,Node ** column){
@@ -219,6 +222,10 @@ void transpose(Sparse *s){
 	Node ** temp = s->rows;
 	s->rows = s->columns;
 	s->columns = temp;
+
+	int tempValue = s->noOfRows;
+	s->noOfRows  = s->noOfColumns;
+	s->noOfColumns = tempValue;
 
 }
 
