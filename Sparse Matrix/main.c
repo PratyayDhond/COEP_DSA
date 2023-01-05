@@ -2,7 +2,7 @@
 #include "sparse.h"
 
 int main(){
-	Sparse s1,s2,s3,s4,s5,s6;
+	Sparse s1,s2,s3,s4,s5,s6,transpose1;
 	initSparse(&s1, "sparseInput.txt");
 	initSparse(&s2, "sparseInput2.txt");
 	s3 = add(s1,s2);
@@ -11,11 +11,14 @@ int main(){
 	initSparse(&s5, "symmetricMatrix.txt");
 	initSparse(&s6, "symmetric1.txt");
 
-	s3 = transpose(s3);
-	display(s3);
+	initSparse(&transpose1,"transposeInput.txt");
+	displayWithoutIndexes(transpose1);
+	transpose(&transpose1);
+	printf("\n");
+	displayWithoutIndexes(transpose1);
 	int result = checkSymmetric(s2);
-	// printf("Matrix S1 is%sSymmetric.\n",(checkSymmetric(s1) ? " " : " not "));
-	// printf("Matrix S2 is%sSymmetric.\n",(checkSymmetric(s2) ? " " : " not "));
-	// printf("Matrix S5 is%sSymmetric.\n",(checkSymmetric(s5) ? " " : " not "));
-	// printf("Matrix S6 is%sSymmetric.\n",(checkSymmetric(s6) ? " " : " not "));
+	printf("%s\n",checkSymmetric(s1) ? "Symmetric" : "Not Symmetric" );
+	printf("%s\n",checkSymmetric(s5) ? "Symmetric" : "Not Symmetric" );
+	printf("%s\n",checkSymmetric(s6) ? "Symmetric" : "Not Symmetric" );
+
 }

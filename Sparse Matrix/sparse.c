@@ -61,6 +61,19 @@ void createNewNodeAndAddToOrthagonalMatrix(Sparse *s,int i, int j, int value){
 
 }
 
+void displayWithoutIndexes(Sparse s){
+		Node * p;
+	for(int i = 0; i < s.noOfRows; i++){
+	    p = s.rows[i];
+	    while(p){
+	    	printf("%d->",p->data);
+	    	p = p-> next;
+	    }
+		printf("\n");
+	}
+}
+
+
 Sparse add(Sparse s1, Sparse s2){
 	Sparse s3;
 	s3.noOfRows = s1.noOfRows > s2.noOfRows ? s1.noOfRows : s2.noOfRows;
@@ -184,32 +197,29 @@ void initSparse(Sparse* s, char* str){
 	
 }
 
-Sparse transpose(Sparse s){
-	Sparse s1;
-	s1.noOfRows = s.noOfRows;
-	s1.noOfColumns = s.noOfColumns;
-	initSparseWithoutFileInput(&s1);
-	Node *p;
-	Node *resultPointer;
-	for(int i = 0; i < s.noOfRows; i++){
-		p = s.rows[i];
-		resultPointer = s1.columns[i];
+void swapPointers(Node** row,Node ** column){
+	Node **temp = row;
+	*row = *column;
+	*column = *temp;
+	return;
+}
+
+void transpose(Sparse *s){
+	
+	for(int i = 0; i < s->noOfRows; i++){
+		Node *p = s->rows[i];
+		Node *nextNode;
 		while(p){
-			resultPointer= p;
-			p = p->next;
-			resultPointer = resultPointer->down;
-		}
+			nextNode = p->next;
+			swapPointers(&p->next, &p->down);
+			p = nextNode;
+		}	
 	}
-	for(int j =0; j < s.noOfColumns; j++){
-		p = s.columns[j];
-		resultPointer = s1.rows[j];
-		while(p){
-			resultPointer= p;
-			p = p->down;
-			resultPointer = resultPointer->next;	
-		}
-	}
-	return s1;
+	
+	Node ** temp = s->rows;
+	s->rows = s->columns;
+	s->columns = temp;
+
 }
 
 int hasSymmetricPair(Sparse s,int i, int j, int data){
@@ -220,12 +230,6 @@ int hasSymmetricPair(Sparse s,int i, int j, int data){
 	}
 	if(data == col->data)
 		return true;
-
-	// while(col && col->i <=j){
-			// if(data == col->data)
-				// return true;
-		// col = col->down;
-	// }
 	return false;
 }
 
@@ -233,7 +237,7 @@ int checkSymmetric(Sparse s){
 
 	// printf("YO1\n");
 	if(s.noOfColumns == 0 || s.noOfRows == 0)
-		return false;
+		return true;
 	// printf("YO2\n");
 	if(s.noOfRows != s.noOfColumns)
 		return false;
@@ -244,10 +248,11 @@ int checkSymmetric(Sparse s){
 	for(int i = 0; i < s.noOfRows; i++){
 		row = s.rows[i];
 		while(row){
-			// printf("YO%d\n",4+i);
-			result = hasSymmetricPair(s,i,row->j, row->data); 
-			if(result == false)
-				return result;
+			if(row->i != row->j){
+				result = hasSymmetricPair(s,i,row->j, row->data); 
+				if(result == false)
+					return result;
+			}
 			row = row -> next;
 		}
 	return true;
