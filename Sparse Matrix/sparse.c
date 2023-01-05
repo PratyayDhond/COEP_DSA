@@ -13,7 +13,6 @@ void display(Sparse s){
 	}
 }
 
-
 void initSparseWithoutFileInput(Sparse *s){
 	s->rows = (Node **) malloc(sizeof(Node*) * s->noOfRows);
 	s->columns = (Node **) malloc(sizeof(Node*) * s->noOfColumns);
@@ -61,8 +60,6 @@ void createNewNodeAndAddToOrthagonalMatrix(Sparse *s,int i, int j, int value){
 	}
 
 }
-	
-
 
 Sparse add(Sparse s1, Sparse s2){
 	Sparse s3;
@@ -83,7 +80,8 @@ Sparse add(Sparse s1, Sparse s2){
 
 	    while(p && p2){
 			if(p -> j == p2 -> j ){	
-				createNewNodeAndAddToOrthagonalMatrix(&s3, i,p->j, p->data + p2->data);
+				if(p->data + p2->data != 0)
+					createNewNodeAndAddToOrthagonalMatrix(&s3, i,p->j, p->data + p2->data);
 				p = p -> next;
 				p2 = p2 -> next;
 			}else if(p -> j < p2 -> j){
@@ -108,7 +106,6 @@ Sparse add(Sparse s1, Sparse s2){
 
 	return s3;
 }
-
 
 Sparse subtract(Sparse s1, Sparse s2){
 	Sparse s3;
@@ -156,7 +153,6 @@ Sparse subtract(Sparse s1, Sparse s2){
 	return s3;
 }
 
-
 void initSparse(Sparse* s, char* str){
 	
 	FILE *fptr;
@@ -186,6 +182,34 @@ void initSparse(Sparse* s, char* str){
 	}	
 	
 	
+}
+
+Sparse transpose(Sparse s){
+	Sparse s1;
+	s1.noOfRows = s.noOfRows;
+	s1.noOfColumns = s.noOfColumns;
+	initSparseWithoutFileInput(&s1);
+	Node *p;
+	Node *resultPointer;
+	for(int i = 0; i < s.noOfRows; i++){
+		p = s.rows[i];
+		resultPointer = s1.columns[i];
+		while(p){
+			resultPointer= p;
+			p = p->next;
+			resultPointer = resultPointer->down;
+		}
+	}
+	for(int j =0; j < s.noOfColumns; j++){
+		p = s.columns[j];
+		resultPointer = s1.rows[j];
+		while(p){
+			resultPointer= p;
+			p = p->down;
+			resultPointer = resultPointer->next;	
+		}
+	}
+	return s1;
 }
 
 int hasSymmetricPair(Sparse s,int i, int j, int data){

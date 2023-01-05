@@ -19,3 +19,4 @@ void display(Sparse s);
 Sparse add(Sparse s1, Sparse s2);
 Sparse subtract(Sparse s1, Sparse s2);
 int checkSymmetric(Sparse s);
+Sparse transpose(Sparse s);

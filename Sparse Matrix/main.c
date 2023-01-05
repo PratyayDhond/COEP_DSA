@@ -7,19 +7,15 @@ int main(){
 	initSparse(&s2, "sparseInput2.txt");
 	s3 = add(s1,s2);
 	s4 = subtract(s1,s2);
+
 	initSparse(&s5, "symmetricMatrix.txt");
 	initSparse(&s6, "symmetric1.txt");
-	// printf("\n");
-	// display(s2);
-	// printf("\n");
-	// display(s4);
-	// initSparse(&s5, "symmetricMatrix.txt");
-	// initSparse(&s5, "symmetric1.txt");
-	// initSparse(&s5, "symmetricMatrix.txt");
 
+	s3 = transpose(s3);
+	display(s3);
 	int result = checkSymmetric(s2);
-	printf("Matrix S1 is%sSymmetric.\n",(checkSymmetric(s1) ? " " : " not "));
-	printf("Matrix S2 is%sSymmetric.\n",(checkSymmetric(s2) ? " " : " not "));
-	printf("Matrix S5 is%sSymmetric.\n",(checkSymmetric(s5) ? " " : " not "));
-	printf("Matrix S6 is%sSymmetric.\n",(checkSymmetric(s6) ? " " : " not "));
+	// printf("Matrix S1 is%sSymmetric.\n",(checkSymmetric(s1) ? " " : " not "));
+	// printf("Matrix S2 is%sSymmetric.\n",(checkSymmetric(s2) ? " " : " not "));
+	// printf("Matrix S5 is%sSymmetric.\n",(checkSymmetric(s5) ? " " : " not "));
+	// printf("Matrix S6 is%sSymmetric.\n",(checkSymmetric(s6) ? " " : " not "));
 }
