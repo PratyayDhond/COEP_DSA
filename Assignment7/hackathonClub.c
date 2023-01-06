@@ -10,8 +10,8 @@ void initList(List *l){
 void display(List l1){
     Node *p = l1;
     int count = 0;
+    char * post;
     while(p){
-        char * post;
         if(count++ == 0)
             post = "President";
         else if(p -> next == NULL)

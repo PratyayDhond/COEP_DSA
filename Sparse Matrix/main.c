@@ -15,8 +15,6 @@ int main(){
 	transpose(&s1);
 	printf("\n");
 	displayWithoutIndexes(s1);
-	transpose(&s1);
-	displayWithoutIndexes(s1);
 
 	initSparse(&transpose1,"transposeInput.txt");
 	printf("\n");

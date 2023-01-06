@@ -208,7 +208,6 @@ void swapPointers(Node** row,Node ** column){
 }
 
 void transpose(Sparse *s){
-	
 	for(int i = 0; i < s->noOfRows; i++){
 		Node *p = s->rows[i];
 		Node *nextNode;
