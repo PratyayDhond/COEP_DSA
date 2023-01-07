@@ -53,10 +53,7 @@ int main(int argc, char* argv[]){
 	
 	printf("Greatest Common Divisor : %d\n",gcd);
 	printf("Least Common Multiple : %d\n",lcm);
-		
-		
-	
-	
+
 	return 0;
 }
 
