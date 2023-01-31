@@ -90,7 +90,7 @@ void popFront(List *l){
     *p = *p->next;
     
     return;
-
+}
 // incomplete code 
 void reverse(List *l){
     if(!l || !(*l) -> next )
